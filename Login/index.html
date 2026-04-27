@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ – AI Course Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Background blobs -->
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+
+  <button class="dm-toggle" title="เปลี่ยนธีม"><i class="fa fa-moon"></i></button>
+
+  <div class="login-wrapper">
+
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa fa-graduation-cap"></i></div>
+        <span class="brand-name">AI Course Hub</span>
+      </div>
+      <h1>Welcome<br/></h1>
+      <p>สมัครสมาชิกและเข้าสู่ระบบ<br/>เพื่อเข้าถึงคอร์สเรียนออนไลน์ทั้งหมด</p>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fa fa-check-circle"></i> คอร์สทั้งหมดฟรี</div>
+        <div class="feature-item"><i class="fa fa-check-circle"></i> ไม่มีค่าใช้จ่ายแอบแฝง</div>
+        <div class="feature-item"><i class="fa fa-check-circle"></i> จัดหมวดหมู่ให้อย่างชัดเจน</div>
+        <div class="feature-item"><i class="fa fa-check-circle"></i> รวบรวมคอร์สจากหลายแหล่งที่มา</div>
+      </div>
+    </div>
+
+    <!-- Right panel — login form -->
+    <div class="right-panel">
+      <div class="login-card">
+
+        <div class="card-header">
+          <div class="avatar-icon"><i class="fa fa-user-shield"></i></div>
+          <h2>เข้าสู่ระบบ</h2>
+        </div>
+
+        <!-- Alert -->
+        <div class="alert" id="alert" style="display:none">
+          <i class="fa fa-circle-exclamation"></i>
+          <span id="alertMsg">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</span>
+        </div>
+
+        <form id="loginForm" autocomplete="off" novalidate>
+
+          <div class="form-group">
+            <label for="username">ชื่อผู้ใช้</label>
+            <div class="input-wrap">
+              <i class="fa fa-user input-icon"></i>
+              <input
+                type="text"
+                id="username"
+                placeholder="กรอกชื่อผู้ใช้"
+                autocomplete="username"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">รหัสผ่าน</label>
+            <div class="input-wrap">
+              <i class="fa fa-lock input-icon"></i>
+              <input
+                type="password"
+                id="password"
+                placeholder="กรอกรหัสผ่าน"
+                autocomplete="current-password"
+              />
+              <button type="button" class="toggle-pw" id="togglePw" tabindex="-1">
+                <i class="fa fa-eye" id="togglePwIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-label">
+              <input type="checkbox" id="rememberMe" />
+              <span class="custom-check"></span>
+              จดจำการเข้าสู่ระบบ
+            </label>
+            <a href="../ForgotPassword/index.html" class="forgot-link">ลืมรหัสผ่าน?</a>
+          </div>
+
+          <button type="submit" class="btn-login" id="submitBtn">
+            <span id="btnText"><i class="fa fa-arrow-right-to-bracket"></i> เข้าสู่ระบบ</span>
+            <span id="btnLoader" style="display:none"><i class="fa fa-circle-notch fa-spin"></i> กำลังตรวจสอบ...</span>
+          </button>
+
+        </form>
+
+        <div class="register-link">
+          ยังไม่มีบัญชี? <a href="../Register/index.html">สมัครสมาชิก</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../darkmode.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

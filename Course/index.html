@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Course Hub - คอร์สเรียน AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="#" class="logo" id="siteLogo">
+          <span class="logo-icon-wrap"><i class="fa fa-graduation-cap logo-icon"></i></span>
+          <span class="logo-text" id="logoText"></span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#">หน้าหลัก</a></li>
+          <li><a href="#" class="active">คอร์สออนไลน์</a></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <div class="search-box">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="ค้นหาคอร์สเรียน..." id="searchInput" />
+        </div>
+        <button class="dm-toggle" title="เปลี่ยนธีม"><i class="fa fa-moon"></i></button>
+        <div class="user-area" id="userArea">
+          <button class="btn-login" onclick="window.location.href='../Login/index.html'">เข้าสู่ระบบ</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>เรียนรู้ AI เพื่ออนาคต</h1>
+      <p>คอร์สเรียนออนไลน์คุณภาพสูง พัฒนาทักษะความสามารถของคุณ — <strong>ฟรีทุกคอร์ส!</strong></p>
+      <button class="btn-hero">ดูคอร์สทั้งหมด <i class="fa fa-arrow-right"></i></button>
+    </div>
+  </section>
+
+  <!-- Category Tabs -->
+  <section class="categories">
+    <div class="container">
+      <div class="cat-tabs" id="catTabs">
+        <button class="cat-btn active" data-cat="all">ทั้งหมด</button>
+        <button class="cat-btn" data-cat="ai">AI & Machine Learning</button>
+        <button class="cat-btn" data-cat="data">Data Science</button>
+        <button class="cat-btn" data-cat="leadership">Leadership</button>
+        <button class="cat-btn" data-cat="operations">Operations</button>
+        <button class="cat-btn" data-cat="productivity">Productivity</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Courses Section -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">หลักสูตรคอร์สเรียนออนไลน์</h2>
+          <p class="section-sub">เรียนฟรี ไม่มีค่าใช้จ่าย พัฒนาตัวเองได้ทุกที่ทุกเวลา</p>
+        </div>
+        <a href="#" class="view-all">ดูทั้งหมด <i class="fa fa-chevron-right"></i></a>
+      </div>
+      <div class="courses-grid" id="coursesGrid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text white">AI Course Hub</span>
+        <p>แพลตฟอร์มเรียนรู้ออนไลน์สำหรับทุกคน</p>
+      </div>
+      <div class="footer-links">
+        <h4>คอร์สเรียน</h4>
+        <ul>
+          <li><a href="#">AI & Machine Learning</a></li>
+          <li><a href="#">Data Science</a></li>
+          <li><a href="#">Leadership</a></li>
+          <li><a href="#">Operations</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>ช่วยเหลือ</h4>
+        <ul>
+          <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
+          <li><a href="#">ติดต่อเรา</a></li>
+          <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AI Course Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- View All Overlay -->
+  <div class="va-overlay" id="vaOverlay">
+    <div class="va-panel">
+      <div class="va-header">
+        <div>
+          <h2 class="va-title">คอร์สเรียนทั้งหมด</h2>
+          <p class="va-sub" id="vaSubtitle"></p>
+        </div>
+        <button class="va-close" id="vaClose"><i class="fa fa-times"></i></button>
+      </div>
+      <div class="va-body" id="vaBody"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose"><i class="fa fa-times"></i></button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="../darkmode.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ===== LOGO ANIMATION =====
+    const logoText = document.getElementById('logoText');
+    const siteLogo = document.getElementById('siteLogo');
+    const text = 'AI Course Hub';
+
+    // สร้าง span แต่ละตัวอักษร พร้อม animation-delay แบบ stagger
+    logoText.innerHTML = text.split('').map((ch, i) =>
+      ch === ' '
+        ? '<span class="logo-letter" style="width:.35em;display:inline-block"> </span>'
+        : `<span class="logo-letter" style="animation-delay:${i * 40}ms">${ch}</span>`
+    ).join('');
+
+    // Magnetic effect — logo ขยับตามเมาส์เล็กน้อย
+    siteLogo.addEventListener('mousemove', e => {
+      const rect = siteLogo.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width  * 10;
+      const dy = (e.clientY - cy) / rect.height * 6;
+      siteLogo.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+    siteLogo.addEventListener('mouseleave', () => {
+      siteLogo.style.transform = 'translate(0,0)';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+// ========== DATA ==========
+const STORAGE_KEY = "conicle_courses";
+
+const DEFAULT_COURSES = [
+  {
+    id: 1,
+    title: "AI For Everyone: เตรียมตัวรับมือกับยุค AI ได้ทันทีโดยไม่ต้องมีพื้นฐาน",
+    category: "ai",
+    categoryLabel: "AI & Machine Learning",
+    badgeColor: "",
+    instructor: "A.Yael",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Yael",
+    students: "12,480",
+    duration: "4 ชั่วโมง",
+    lessons: 18,
+    rating: 4.8,
+    description: "เรียนรู้ AI จากศูนย์ ทำความเข้าใจว่า AI คืออะไร ใช้งานอย่างไร และจะส่งผลต่อชีวิตและธุรกิจของคุณได้อย่างไร เหมาะสำหรับทุกคนที่ไม่มีพื้นฐานด้านเทคโนโลยี",
+    thumb: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
+    featured: true
+  },
+  {
+    id: 2,
+    title: "ออกแบบและวางแผนกลยุทธ์องค์กรด้วย AI อย่างมืออาชีพ",
+    category: "operations",
+    categoryLabel: "Operations",
+    badgeColor: "blue",
+    instructor: "A.Kanthie",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Kanthie",
+    students: "8,310",
+    duration: "6 ชั่วโมง",
+    lessons: 24,
+    rating: 4.7,
+    description: "เรียนรู้การนำ AI มาช่วยวางแผนกลยุทธ์ธุรกิจ วิเคราะห์ตลาด และออกแบบโมเดลธุรกิจให้มีประสิทธิภาพสูงสุด",
+    thumb: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
+    featured: false
+  },
+  {
+    id: 3,
+    title: "Systematic Planning (PDCA) กับการปรับปรุงงานอย่างต่อเนื่อง",
+    category: "operations",
+    categoryLabel: "Operations",
+    badgeColor: "green",
+    instructor: "Beyond Training",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Beyond",
+    students: "9,640",
+    duration: "3.5 ชั่วโมง",
+    lessons: 14,
+    rating: 4.6,
+    description: "เรียนรู้วงจร PDCA (Plan-Do-Check-Act) เพื่อปรับปรุงกระบวนการทำงานอย่างเป็นระบบ พร้อมนำเทคนิค AI มาช่วยวิเคราะห์ข้อมูล",
+    thumb: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80",
+    featured: true
+  },
+  {
+    id: 4,
+    title: "Complex Problem Solving and Decision Making ด้วย AI",
+    category: "leadership",
+    categoryLabel: "Leadership Mindset",
+    badgeColor: "purple",
+    instructor: "Beyond Training",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=BeyondT",
+    students: "6,720",
+    duration: "5 ชั่วโมง",
+    lessons: 20,
+    rating: 4.9,
+    description: "เสริมทักษะการแก้ปัญหาซับซ้อนและการตัดสินใจเชิงกลยุทธ์ด้วยเครื่องมือ AI พร้อม Framework สำหรับผู้นำยุคใหม่",
+    thumb: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80",
+    featured: true
+  },
+  {
+    id: 5,
+    title: "ChatGPT & Prompt Engineering สำหรับมืออาชีพ",
+    category: "ai",
+    categoryLabel: "AI & Machine Learning",
+    badgeColor: "",
+    instructor: "A.Pimchanok",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Pim",
+    students: "21,300",
+    duration: "5.5 ชั่วโมง",
+    lessons: 28,
+    rating: 4.9,
+    description: "เรียนรู้การเขียน Prompt ที่มีประสิทธิภาพสำหรับ ChatGPT, Claude, และ AI ยี่ห้ออื่น ๆ เพื่อเพิ่มผลิตภาพในการทำงาน",
+    thumb: "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=600&q=80",
+    featured: true
+  },
+  {
+    id: 6,
+    title: "Data Analytics เบื้องต้น: วิเคราะห์ข้อมูลด้วย Python & AI",
+    category: "data",
+    categoryLabel: "Data Science",
+    badgeColor: "orange",
+    instructor: "A.Sirichai",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Sirichai",
+    students: "14,890",
+    duration: "8 ชั่วโมง",
+    lessons: 32,
+    rating: 4.7,
+    description: "เรียนรู้การวิเคราะห์ข้อมูลด้วย Python, Pandas, และเครื่องมือ AI สมัยใหม่ตั้งแต่ระดับเริ่มต้นจนถึงการสร้าง Dashboard",
+    thumb: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
+    featured: false
+  },
+  {
+    id: 7,
+    title: "Generative AI สำหรับนักออกแบบและครีเอทีฟ",
+    category: "ai",
+    categoryLabel: "AI & Machine Learning",
+    badgeColor: "purple",
+    instructor: "A.Natnicha",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Nat",
+    students: "11,050",
+    duration: "4 ชั่วโมง",
+    lessons: 16,
+    rating: 4.8,
+    description: "สร้างสรรค์งานดีไซน์ด้วย Midjourney, DALL-E, Stable Diffusion และ AI Tools สำหรับครีเอทีฟยุคใหม่",
+    thumb: "https://images.unsplash.com/photo-1686191128892-3b37add4c844?w=600&q=80",
+    featured: false
+  },
+  {
+    id: 8,
+    title: "Agile Leadership: นำทีมด้วยความคล่องตัวในยุค AI",
+    category: "leadership",
+    categoryLabel: "Leadership Mindset",
+    badgeColor: "blue",
+    instructor: "A.Wanchai",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Wanchai",
+    students: "7,420",
+    duration: "6 ชั่วโมง",
+    lessons: 22,
+    rating: 4.6,
+    description: "พัฒนาทักษะการเป็นผู้นำแบบ Agile เรียนรู้วิธีบริหารทีมในยุคที่ AI เปลี่ยนแปลงรูปแบบการทำงาน",
+    thumb: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80",
+    featured: false
+  },
+  {
+    id: 9,
+    title: "Microsoft Copilot: เพิ่มประสิทธิภาพการทำงานด้วย AI ใน Office 365",
+    category: "productivity",
+    categoryLabel: "Productivity",
+    badgeColor: "green",
+    instructor: "A.Kornkamol",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Korn",
+    students: "18,600",
+    duration: "3 ชั่วโมง",
+    lessons: 12,
+    rating: 4.8,
+    description: "เรียนรู้การใช้ Microsoft Copilot ใน Word, Excel, PowerPoint และ Teams เพื่อเพิ่มประสิทธิภาพการทำงานได้ทันที",
+    thumb: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80",
+    featured: false
+  },
+  {
+    id: 10,
+    title: "Machine Learning Fundamentals: พื้นฐาน ML สำหรับทุกคน",
+    category: "data",
+    categoryLabel: "Data Science",
+    badgeColor: "orange",
+    instructor: "A.Thanakorn",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Thana",
+    students: "9,880",
+    duration: "10 ชั่วโมง",
+    lessons: 40,
+    rating: 4.7,
+    description: "เข้าใจหลักการของ Machine Learning ตั้งแต่ Linear Regression จนถึง Neural Networks พร้อม Workshop ลงมือปฏิบัติจริง",
+    thumb: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80",
+    featured: false
+  },
+  {
+    id: 11,
+    title: "AI Ethics & Responsible AI: จริยธรรม AI ที่ทุกองค์กรต้องรู้",
+    category: "ai",
+    categoryLabel: "AI & Machine Learning",
+    badgeColor: "purple",
+    instructor: "A.Pornthip",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Porn",
+    students: "5,330",
+    duration: "2.5 ชั่วโมง",
+    lessons: 10,
+    rating: 4.9,
+    description: "ทำความเข้าใจจริยธรรมในการใช้ AI ความลำเอียงในโมเดล ความเป็นส่วนตัวของข้อมูล และการนำ AI ใช้อย่างรับผิดชอบ",
+    thumb: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&fit=crop&crop=center",
+    featured: false
+  },
+  {
+    id: 12,
+    title: "Lean Management ด้วยเครื่องมือ AI: ลดของเสีย เพิ่มคุณค่า",
+    category: "operations",
+    categoryLabel: "Operations",
+    badgeColor: "green",
+    instructor: "A.Araya",
+    avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=Araya",
+    students: "6,110",
+    duration: "5 ชั่วโมง",
+    lessons: 18,
+    rating: 4.6,
+    description: "เรียนรู้หลักการ Lean Management ผสานกับเครื่องมือ AI สมัยใหม่ เพื่อปรับปรุงกระบวนการและลดความสูญเปล่าในองค์กร",
+    thumb: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=600&q=80",
+    featured: false
+  }
+];
+
+// โหลดจาก localStorage ถ้ามี ไม่งั้นใช้ default
+function loadCourses() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) {
+    try { return JSON.parse(raw); } catch(e) {}
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_COURSES));
+}
+
+let courses = loadCourses();
+
+// ฟัง storage event เพื่อ sync แบบ realtime เมื่อ Admin บันทึก
+window.addEventListener("storage", e => {
+  if (e.key === STORAGE_KEY) {
+    courses = loadCourses();
+    refresh();
+  }
+});
+
+// ========== RENDER CARD ==========
+function renderCard(course) {
+  const badgeClass = course.badgeColor ? `card-badge ${course.badgeColor}` : "card-badge";
+  return `
+    <div class="course-card" data-id="${course.id}">
+      <div class="card-thumb">
+        <img src="${course.thumb}" alt="${course.title}" loading="lazy" />
+        <div class="card-badges">
+          <span class="${badgeClass}">${course.categoryLabel}</span>
+          ${course.difficulty ? `<span class="diff-badge ${course.difficulty}">${{beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[course.difficulty]||''}</span>` : ''}
+        </div>
+        <div class="play-btn"><i class="fa fa-play-circle"></i></div>
+        ${course.featured ? `<div class="featured-star"><i class="fa fa-star"></i> Recommend</div>` : ''}
+      </div>
+      <div class="card-body">
+        <div class="card-category">${course.categoryLabel}</div>
+        <h3 class="card-title">${course.title}</h3>
+        <div class="card-meta">
+          <img class="card-avatar" src="${course.avatar}" alt="${course.instructor}" />
+          <span class="card-instructor">${course.instructor}</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-price">ฟรี</span>
+          <span class="card-meta-info"><i class="fa fa-clock"></i> ${course.duration}</span>
+          <span class="card-meta-info"><i class="fa fa-book-open"></i> ${course.lessons} บทเรียน</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
+  let html = "";
+  for (let i = 0; i < full; i++) html += "★";
+  if (half) html += "½";
+  return html;
+}
+
+// ========== POPULATE GRIDS ==========
+function populateGrid(containerId, list) {
+  const container = document.getElementById(containerId);
+  if (!list.length) {
+    container.innerHTML = `<div class="no-results"><i class="fa fa-search"></i>ไม่พบคอร์สที่ค้นหา</div>`;
+    return;
+  }
+  container.innerHTML = list.map(renderCard).join("");
+  container.querySelectorAll(".course-card").forEach(card => {
+    card.addEventListener("click", () => openModal(Number(card.dataset.id)));
+  });
+}
+
+// ========== FILTER ==========
+let activeCategory = "all";
+let searchQuery = "";
+
+function filtered() {
+  return courses.filter(c => {
+    if (c.hidden) return false;
+    const matchCat = activeCategory === "all" || c.category === activeCategory;
+    const matchSearch = c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        c.instructor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        c.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchCat && matchSearch;
+  });
+}
+
+function featuredFiltered() {
+  return courses.filter(c => !c.hidden && c.featured && (
+    activeCategory === "all" || c.category === activeCategory
+  ) && (
+    c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+  ));
+}
+
+function refresh() {
+  populateGrid("coursesGrid", filtered());
+}
+
+// ========== MODAL ==========
+function openModal(id) {
+  const c = courses.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById("modalBody").innerHTML = `
+    <img class="modal-thumb" src="${c.thumb}" alt="${c.title}" />
+    <div class="modal-info">
+      <div class="modal-category-row">
+        <span class="modal-category">${c.categoryLabel}</span>
+        ${c.difficulty ? `<span class="diff-badge ${c.difficulty}">${{beginner:'🟢 Beginner',intermediate:'🟡 Intermediate',advanced:'🔴 Advanced'}[c.difficulty]||''}</span>` : ''}
+      </div>
+      <h2 class="modal-title">${c.title}</h2>
+      <p class="modal-desc">${c.description}</p>
+      <div class="modal-meta-row">
+        <span><i class="fa fa-user-tie"></i> ${c.instructor}</span>
+        <span><i class="fa fa-clock"></i> ${c.duration}</span>
+        <span><i class="fa fa-book-open"></i> ${c.lessons} บทเรียน</span>
+      </div>
+      <div class="modal-price-row">
+        <div>
+          <div style="font-size:12px;color:#999;margin-bottom:4px;">ราคาคอร์สเรียน</div>
+          <div class="modal-price">ฟรี</div>
+        </div>
+        ${c.enrollUrl
+          ? `<a class="btn-enroll" href="${c.enrollUrl}" target="_blank" rel="noopener">
+               <i class="fa fa-graduation-cap"></i> ลงทะเบียนเรียน
+             </a>`
+          : `<button class="btn-enroll" disabled style="opacity:.5;cursor:not-allowed">
+               <i class="fa fa-graduation-cap"></i> ยังไม่มีลิ้งลงทะเบียนเรียน
+             </button>`
+        }
+      </div>
+    </div>`;
+  document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// ========== EVENTS ==========
+document.getElementById("catTabs").addEventListener("click", e => {
+  const btn = e.target.closest(".cat-btn");
+  if (!btn) return;
+  document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  activeCategory = btn.dataset.cat;
+  refresh();
+});
+
+document.getElementById("searchInput").addEventListener("input", e => {
+  searchQuery = e.target.value;
+  refresh();
+});
+
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("modalOverlay").addEventListener("click", e => {
+  if (e.target === document.getElementById("modalOverlay")) closeModal();
+});
+
+// Escape key handled in View All section below
+
+// "ดูคอร์สทั้งหมด" hero button scrolls to courses section
+document.querySelector(".btn-hero").addEventListener("click", () => {
+  document.querySelector(".courses-section").scrollIntoView({ behavior: "smooth" });
+});
+
+// ========== USER AUTH AREA ==========
+(function initUserArea() {
+  const ls = localStorage.getItem("conicle_auth") === "true";
+  const ss = sessionStorage.getItem("conicle_auth") === "true";
+  if (!ls && !ss) return;
+
+  const username = localStorage.getItem("conicle_admin_user") || sessionStorage.getItem("conicle_admin_user") || "";
+  const isAdmin  = (localStorage.getItem("conicle_is_admin") || sessionStorage.getItem("conicle_is_admin")) === "true";
+  const area = document.getElementById("userArea");
+
+  area.innerHTML = `
+    <div class="user-menu" id="userMenu">
+      <button class="user-chip" id="userChip">
+        <div class="user-avatar">${username.charAt(0).toUpperCase()}</div>
+        <span>${username}</span>
+        <i class="fa fa-chevron-down" style="font-size:10px;opacity:.6"></i>
+      </button>
+      <div class="user-dropdown" id="userDropdown">
+        ${isAdmin ? `<a href="../Admin/index.html"><i class="fa fa-shield-halved"></i> จัดการคอร์ส</a>` : ""}
+        <a href="#" id="logoutBtn"><i class="fa fa-right-from-bracket"></i> ออกจากระบบ</a>
+      </div>
+    </div>`;
+
+  document.getElementById("userChip").addEventListener("click", () => {
+    document.getElementById("userDropdown").classList.toggle("show");
+  });
+  document.addEventListener("click", e => {
+    if (!document.getElementById("userMenu").contains(e.target))
+      document.getElementById("userDropdown").classList.remove("show");
+  });
+  document.getElementById("logoutBtn").addEventListener("click", e => {
+    e.preventDefault();
+    localStorage.removeItem("conicle_auth");
+    localStorage.removeItem("conicle_admin_user");
+    localStorage.removeItem("conicle_is_admin");
+    sessionStorage.removeItem("conicle_auth");
+    sessionStorage.removeItem("conicle_admin_user");
+    sessionStorage.removeItem("conicle_is_admin");
+    window.location.href = "../Login/index.html";
+  });
+})();
+
+// ========== VIEW ALL ==========
+function openViewAll() {
+  const visible  = courses.filter(c => !c.hidden);
+  const featured = visible.filter(c => c.featured);
+  const others   = visible.filter(c => !c.featured);
+
+  document.getElementById('vaSubtitle').textContent =
+    `ทั้งหมด ${visible.length} คอร์ส · แนะนำ ${featured.length} · อื่นๆ ${others.length}`;
+
+  const vaBody = document.getElementById('vaBody');
+  vaBody.innerHTML = `
+    ${featured.length ? `
+      <div class="va-section">
+        <div class="va-section-header">
+          <div class="va-section-icon featured"><i class="fa fa-star"></i></div>
+          <span class="va-section-label">คอร์สแนะนำ</span>
+          <span class="va-section-count featured">${featured.length} คอร์ส</span>
+        </div>
+        <div class="va-grid" id="vaFeaturedGrid"></div>
+      </div>` : ''}
+    ${others.length ? `
+      <div class="va-section">
+        <div class="va-section-header">
+          <div class="va-section-icon others"><i class="fa fa-book-open"></i></div>
+          <span class="va-section-label">คอร์สอื่นๆ</span>
+          <span class="va-section-count others">${others.length} คอร์ส</span>
+        </div>
+        <div class="va-grid" id="vaOthersGrid"></div>
+      </div>` : ''}
+  `;
+
+  [{ id: 'vaFeaturedGrid', list: featured }, { id: 'vaOthersGrid', list: others }]
+    .forEach(({ id, list }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.innerHTML = list.map(renderCard).join('');
+      el.querySelectorAll('.course-card').forEach(card => {
+        card.addEventListener('click', () => {
+          closeViewAll();
+          openModal(Number(card.dataset.id));
+        });
+      });
+    });
+
+  document.getElementById('vaOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeViewAll() {
+  document.getElementById('vaOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('vaClose').addEventListener('click', closeViewAll);
+document.getElementById('vaOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('vaOverlay')) closeViewAll();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeViewAll(); closeModal(); }
+});
+
+document.querySelectorAll('.view-all').forEach(btn => {
+  btn.addEventListener('click', e => { e.preventDefault(); openViewAll(); });
+});
+
+// ========== INIT ==========
+refresh();

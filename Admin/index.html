@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – AI Course Hub Course Manager</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../Course/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-icon"><i class="fa fa-graduation-cap"></i></span>
+      <span class="logo-text">AI Course Hub<br><small>Admin Panel</small></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-page="courses">
+        <i class="fa fa-book-open"></i><span>จัดการคอร์ส</span>
+      </a>
+      <a href="#" class="nav-item" data-page="add">
+        <i class="fa fa-plus-circle"></i><span>เพิ่มคอร์สใหม่</span>
+      </a>
+      <a href="#" class="nav-item" data-page="users">
+        <i class="fa fa-users-gear"></i><span>จัดการผู้ใช้</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="../Course/index.html" target="_blank" class="nav-item preview-link">
+        <i class="fa fa-eye"></i><span>ดูหน้าเว็บไซต์</span>
+      </a>
+      <a href="#" class="nav-item logout-link" id="logoutBtn">
+        <i class="fa fa-right-from-bracket"></i><span>ออกจากระบบ</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-wrap">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle"><i class="fa fa-bars"></i></button>
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-right">
+        <button class="dm-toggle" title="เปลี่ยนธีม"><i class="fa fa-moon"></i></button>
+        <span class="badge-saved" id="savedBadge"><i class="fa fa-check-circle"></i> บันทึกแล้ว</span>
+        <div class="admin-info">
+          <div class="admin-avatar"><i class="fa fa-user-shield"></i></div>
+          <span class="admin-name" id="adminName">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== PAGE: DASHBOARD ===== -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>ภาพรวมระบบ</h1>
+        <p>สรุปข้อมูลคอร์สเรียนทั้งหมด</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card red">
+          <div class="stat-icon"><i class="fa fa-book"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">คอร์สทั้งหมด</div>
+          </div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon"><i class="fa fa-robot"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="statAI">0</div>
+            <div class="stat-label">AI & Machine Learning</div>
+          </div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon"><i class="fa fa-star"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="statFeatured">0</div>
+            <div class="stat-label">คอร์สแนะนำ</div>
+          </div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon"><i class="fa fa-tags"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="statCats">0</div>
+            <div class="stat-label">หมวดหมู่</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent courses table preview -->
+      <div class="card mt-20">
+        <div class="card-head">
+          <span><i class="fa fa-clock-rotate-left"></i> คอร์สล่าสุด</span>
+          <button class="btn-sm" data-page="courses"><i class="fa fa-list"></i> ดูทั้งหมด</button>
+        </div>
+        <table class="data-table" id="dashTable">
+          <thead>
+            <tr><th>คอร์ส</th><th>หมวด</th><th>ผู้สอน</th><th>แนะนำ</th><th style="text-align:center">แสดง</th><th>จัดการ</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: COURSES ===== -->
+    <section class="page" id="page-courses">
+      <div class="page-header">
+        <h1>จัดการคอร์สทั้งหมด</h1>
+        <p>แก้ไข เพิ่ม หรือลบคอร์สเรียน</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-wrap">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="ค้นหาคอร์ส..." id="tableSearch" />
+        </div>
+        <select id="filterCat" class="filter-select">
+          <option value="all">ทุกหมวดหมู่</option>
+          <option value="ai">AI & Machine Learning</option>
+          <option value="data">Data Science</option>
+          <option value="leadership">Leadership</option>
+          <option value="operations">Operations</option>
+          <option value="productivity">Productivity</option>
+        </select>
+        <button class="btn-primary" id="addCourseBtn">
+          <i class="fa fa-plus"></i> เพิ่มคอร์ส
+        </button>
+      </div>
+
+      <div class="card">
+        <table class="data-table" id="coursesTable">
+          <thead>
+            <tr>
+              <th style="width:32px"></th>
+              <th style="width:40px">#</th>
+              <th>รูป</th>
+              <th>ชื่อคอร์ส</th>
+              <th>หมวด</th>
+              <th>ผู้สอน</th>
+              <th>แนะนำ</th>
+              <th style="text-align:center">แสดง</th>
+              <th style="width:120px">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="coursesBody"></tbody>
+        </table>
+        <div class="table-empty" id="tableEmpty" style="display:none">
+          <i class="fa fa-inbox"></i><br/>ไม่พบคอร์สที่ค้นหา
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: ADD ===== -->
+    <section class="page" id="page-add">
+      <div class="page-header">
+        <h1 id="addPageTitle">เพิ่มคอร์สใหม่</h1>
+        <p id="addPageSub">กรอกข้อมูลคอร์สเรียนด้านล่าง</p>
+      </div>
+      <div class="form-layout">
+        <!-- Left: Form -->
+        <form class="card form-card" id="courseForm" autocomplete="off">
+          <input type="hidden" id="editId" />
+
+          <div class="form-section-title"><i class="fa fa-info-circle"></i> ข้อมูลทั่วไป</div>
+
+          <div class="form-group full">
+            <label>ชื่อคอร์ส <span class="req">*</span></label>
+            <input type="text" id="f_title" placeholder="ชื่อคอร์สเรียน..." required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>หมวดหมู่ <span class="req">*</span></label>
+              <select id="f_category">
+                <option value="ai">AI & Machine Learning</option>
+                <option value="data">Data Science</option>
+                <option value="leadership">Leadership</option>
+                <option value="operations">Operations</option>
+                <option value="productivity">Productivity</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>สีแบดจ์</label>
+              <select id="f_badgeColor">
+                <option value="">แดง (default)</option>
+                <option value="blue">น้ำเงิน</option>
+                <option value="green">เขียว</option>
+                <option value="purple">ม่วง</option>
+                <option value="orange">ส้ม</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label>ระดับความยาก</label>
+              <select id="f_difficulty">
+                <option value="beginner">🟢 Beginner – เริ่มต้น</option>
+                <option value="intermediate">🟡 Intermediate – ปานกลาง</option>
+                <option value="advanced">🔴 Advanced – ขั้นสูง</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label>คำอธิบายคอร์ส <span class="req">*</span></label>
+            <textarea id="f_description" rows="4" placeholder="อธิบายรายละเอียดของคอร์ส..." required></textarea>
+          </div>
+
+          <div class="form-section-title mt-16"><i class="fa fa-user-tie"></i> ข้อมูลผู้สอน</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>ชื่อผู้สอน <span class="req">*</span></label>
+              <input type="text" id="f_instructor" placeholder="ชื่อ-นามสกุล..." required />
+            </div>
+            <div class="form-group">
+              <label>Avatar URL <small>(ปล่อยว่าง = สร้างอัตโนมัติ)</small></label>
+              <input type="text" id="f_avatar" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="form-section-title mt-16"><i class="fa fa-chart-bar"></i> สถิติคอร์ส</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>ระยะเวลา</label>
+              <input type="text" id="f_duration" placeholder="เช่น 4 ชั่วโมง" />
+            </div>
+            <div class="form-group">
+              <label>จำนวนบทเรียน</label>
+              <input type="number" id="f_lessons" placeholder="18" min="1" />
+            </div>
+          </div>
+
+          <div class="form-section-title mt-16"><i class="fa fa-link"></i> ลิ้งลงทะเบียน</div>
+
+          <div class="form-group full">
+            <label>URL ลงทะเบียน <small>(เมื่อกด "ลงทะเบียนฟรี" จะเด้งไปที่นี่)</small></label>
+            <input type="text" id="f_enrollUrl" placeholder="https://..." />
+          </div>
+
+          <div class="form-section-title mt-16"><i class="fa fa-image"></i> รูปภาพ</div>
+
+          <div class="form-group full">
+            <label>URL รูปปก <span class="req">*</span></label>
+            <input type="text" id="f_thumb" placeholder="https://images.unsplash.com/..." required />
+            <div class="thumb-preview-wrap">
+              <img id="thumbPreview" src="" alt="preview" style="display:none" />
+              <span id="thumbPlaceholder" class="thumb-placeholder"><i class="fa fa-image"></i> ตัวอย่างรูป</span>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="toggle-label">
+              <input type="checkbox" id="f_featured" class="toggle-input" />
+              <span class="toggle-switch"></span>
+              แสดงในส่วน "หลักสูตรแนะนำ"
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" id="formCancel">ยกเลิก</button>
+            <button type="submit" class="btn-primary" id="formSubmit">
+              <i class="fa fa-save"></i> บันทึกคอร์ส
+            </button>
+          </div>
+        </form>
+
+        <!-- Right: Preview -->
+        <div class="preview-panel">
+          <div class="preview-title"><i class="fa fa-eye"></i> ตัวอย่างการ์ด</div>
+          <div class="preview-card-wrap">
+            <div class="course-card" id="cardPreview" style="cursor:default;max-width:300px">
+              <div class="card-thumb">
+                <img id="cp-img" src="" alt="preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+                <div class="card-badges">
+                  <span class="card-badge" id="cp-badge">AI & Machine Learning</span>
+                  <span class="diff-badge" id="cp-diff" style="display:none"></span>
+                </div>
+                <div id="cp-thumb-placeholder" class="thumb-placeholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><i class="fa fa-image"></i> ตัวอย่างรูป</div>
+              </div>
+              <div class="card-body">
+                <div class="card-category" id="cp-cat">AI & Machine Learning</div>
+                <h3 class="card-title" id="cp-title">ชื่อคอร์สเรียน</h3>
+                <div class="card-meta">
+                  <img class="card-avatar" id="cp-avatar" src="https://api.dicebear.com/7.x/thumbs/svg?seed=Admin" alt="" />
+                  <span class="card-instructor" id="cp-instructor">ชื่อผู้สอน</span>
+                </div>
+                <div class="card-footer">
+                  <span class="card-price">ฟรี</span>
+                  <span class="card-meta-info" id="cp-duration" style="display:none"><i class="fa fa-clock"></i> </span>
+                  <span class="card-meta-info" id="cp-lessons" style="display:none"><i class="fa fa-book-open"></i> </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="preview-note">
+            <i class="fa fa-circle-info"></i>
+            ข้อมูลจะอัปเดตเรียลไทม์เมื่อคุณพิมพ์
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: USERS ===== -->
+    <section class="page" id="page-users">
+      <div class="page-header">
+        <h1>จัดการผู้ใช้</h1>
+        <p>ดูและจัดการสิทธิ์ผู้ใช้ที่สมัครเข้ามา</p>
+      </div>
+      <div class="card">
+        <table class="data-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ชื่อผู้ใช้</th>
+              <th>อีเมล</th>
+              <th>วันที่สมัคร</th>
+              <th style="text-align:center">สิทธิ์ Admin</th>
+              <th style="text-align:center">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="usersBody"></tbody>
+        </table>
+        <div class="table-empty" id="usersEmpty" style="display:none">
+          <i class="fa fa-users"></i><br/>ยังไม่มีผู้ใช้สมัครเข้ามา
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.main-wrap -->
+
+  <!-- ===== DELETE CONFIRM MODAL ===== -->
+  <div class="overlay" id="deleteOverlay">
+    <div class="confirm-modal">
+      <div class="confirm-icon"><i class="fa fa-triangle-exclamation"></i></div>
+      <h3>ลบคอร์สนี้?</h3>
+      <p id="deleteCourseName"></p>
+      <p class="confirm-sub">การดำเนินการนี้ไม่สามารถย้อนกลับได้</p>
+      <div class="confirm-actions">
+        <button class="btn-cancel" id="deleteCancelBtn">ยกเลิก</button>
+        <button class="btn-danger" id="deleteConfirmBtn"><i class="fa fa-trash"></i> ลบเลย</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="../darkmode.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

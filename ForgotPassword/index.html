@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ลืมรหัสผ่าน – AI Course Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+
+  <button class="dm-toggle" title="เปลี่ยนธีม"><i class="fa fa-moon"></i></button>
+
+  <div class="login-wrapper">
+
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa fa-graduation-cap"></i></div>
+        <span class="brand-name">AI Course Hub</span>
+      </div>
+      <h1>ลืมรหัสผ่าน?<br/>ไม่ต้องกังวล</h1>
+      <p>กรอกอีเมลที่ลงทะเบียนไว้<br/>เราจะส่งรหัส OTP เพื่อรีเซตรหัสผ่านไปให้</p>
+      <div class="feature-list">
+        <div class="feature-item"><i class="fa fa-envelope-circle-check"></i> ระบุอีเมลที่ใช้สมัคร</div>
+        <div class="feature-item"><i class="fa fa-key"></i> รับรหัส OTP ทางอีเมล</div>
+        <div class="feature-item"><i class="fa fa-lock-open"></i> ตั้งรหัสผ่านใหม่</div>
+        <div class="feature-item"><i class="fa fa-clock"></i> รหัส OTP หมดอายุใน 15 นาที</div>
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="right-panel">
+      <div class="login-card">
+
+        <div class="card-header">
+          <div class="avatar-icon"><i class="fa fa-unlock-keyhole"></i></div>
+          <h2>รีเซตรหัสผ่าน</h2>
+          <p>กรอกอีเมลเพื่อรับรหัส OTP</p>
+        </div>
+
+        <!-- Error Alert -->
+        <div class="alert alert-error" id="alertError" style="display:none">
+          <i class="fa fa-circle-exclamation"></i>
+          <span id="alertErrorMsg"></span>
+        </div>
+
+        <!-- Success Alert -->
+        <div class="alert alert-success" id="alertSuccess" style="display:none">
+          <i class="fa fa-circle-check"></i>
+          <span id="alertSuccessMsg"></span>
+        </div>
+
+        <!-- Form -->
+        <form id="forgotForm" autocomplete="off" novalidate>
+          <div class="form-group">
+            <label for="email">อีเมลที่ลงทะเบียน</label>
+            <div class="input-wrap">
+              <i class="fa fa-envelope input-icon"></i>
+              <input
+                type="email"
+                id="email"
+                placeholder="กรอกอีเมล..."
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-login" id="submitBtn">
+            <span id="btnText"><i class="fa fa-paper-plane"></i> ส่งรหัส OTP</span>
+            <span id="btnLoader" style="display:none"><i class="fa fa-circle-notch fa-spin"></i> กำลังส่ง...</span>
+          </button>
+        </form>
+
+        <div class="register-link">
+          <a href="../Login/index.html"><i class="fa fa-arrow-left"></i> กลับไปหน้าเข้าสู่ระบบ</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="../darkmode.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
