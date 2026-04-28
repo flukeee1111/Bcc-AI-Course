@@ -1,4 +1,100 @@
 // ============================================================
+//  I18N
+// ============================================================
+const LOGIN_TRANSLATIONS = {
+  th: {
+    'left.sub':    'สมัครสมาชิกและเข้าสู่ระบบ<br/>เพื่อเข้าถึงคอร์สเรียนออนไลน์ทั้งหมด',
+    'feat1':       'คอร์สทั้งหมดฟรี',
+    'feat2':       'ไม่มีค่าใช้จ่ายแอบแฝง',
+    'feat3':       'จัดหมวดหมู่ให้อย่างชัดเจน',
+    'feat4':       'รวบรวมคอร์สจากหลายแหล่งที่มา',
+    'heading':     'เข้าสู่ระบบ',
+    'label.user':  'ชื่อผู้ใช้',
+    'ph.user':     'กรอกชื่อผู้ใช้',
+    'label.pw':    'รหัสผ่าน',
+    'ph.pw':       'กรอกรหัสผ่าน',
+    'remember':    'จดจำการเข้าสู่ระบบ',
+    'forgot':      'ลืมรหัสผ่าน?',
+    'btn.login':   'เข้าสู่ระบบ',
+    'btn.loading': 'กำลังตรวจสอบ...',
+    'no.account':  'ยังไม่มีบัญชี?',
+    'register':    'สมัครสมาชิก',
+    'err.noUser':  'กรุณากรอกชื่อผู้ใช้',
+    'err.noPw':    'กรุณากรอกรหัสผ่าน',
+    'err.wrong':   'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง',
+    'success':     '<i class="fa fa-check"></i> เข้าสู่ระบบสำเร็จ!',
+  },
+  en: {
+    'left.sub':    'Sign up and log in<br/>to access all online courses',
+    'feat1':       'All courses free',
+    'feat2':       'No hidden fees',
+    'feat3':       'Clearly categorized',
+    'feat4':       'Curated from multiple sources',
+    'heading':     'Login',
+    'label.user':  'Username',
+    'ph.user':     'Enter your username',
+    'label.pw':    'Password',
+    'ph.pw':       'Enter your password',
+    'remember':    'Remember me',
+    'forgot':      'Forgot password?',
+    'btn.login':   'Login',
+    'btn.loading': 'Verifying...',
+    'no.account':  "Don't have an account?",
+    'register':    'Sign up',
+    'err.noUser':  'Please enter your username',
+    'err.noPw':    'Please enter your password',
+    'err.wrong':   'Invalid username or password. Please try again.',
+    'success':     '<i class="fa fa-check"></i> Login successful!',
+  }
+};
+
+let currentLang = localStorage.getItem('siteLanguage') || 'th';
+function lt(key) {
+  return LOGIN_TRANSLATIONS[currentLang][key] ?? key;
+}
+
+function applyLangLogin() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = LOGIN_TRANSLATIONS[currentLang][el.dataset.i18n];
+    if (typeof val === 'string') el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const val = LOGIN_TRANSLATIONS[currentLang][el.dataset.i18nHtml];
+    if (val) el.innerHTML = val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const val = LOGIN_TRANSLATIONS[currentLang][el.dataset.i18nPlaceholder];
+    if (val) el.placeholder = val;
+  });
+  const langFlag = document.getElementById('langFlag');
+  const langCode = document.getElementById('langCode');
+  if (langFlag) langFlag.textContent = currentLang === 'th' ? '🇹🇭' : '🇬🇧';
+  if (langCode) langCode.textContent = currentLang === 'th' ? 'TH' : 'EN';
+  document.querySelectorAll('.lang-option').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === currentLang);
+  });
+}
+
+function setLangLogin(lang) {
+  currentLang = lang;
+  localStorage.setItem('siteLanguage', lang);
+  applyLangLogin();
+  document.getElementById('langSelector')?.classList.remove('open');
+}
+
+(function initLangSelector() {
+  const sel = document.getElementById('langSelector');
+  const cur = document.getElementById('langCurrent');
+  if (!sel || !cur) return;
+  cur.addEventListener('click', e => { e.stopPropagation(); sel.classList.toggle('open'); });
+  document.addEventListener('click', () => sel.classList.remove('open'));
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.addEventListener('click', e => { e.stopPropagation(); setLangLogin(btn.dataset.lang); });
+  });
+  applyLangLogin();
+})();
+
+// ============================================================
 //  CREDENTIALS
 //  เปลี่ยน username / password ได้ที่นี่
 // ============================================================
@@ -66,13 +162,13 @@ form.addEventListener("submit", e => {
   // Validate empty
   if (!username) {
     usernameEl.classList.add("error");
-    showAlert("กรุณากรอกชื่อผู้ใช้");
+    showAlert(lt("err.noUser"));
     usernameEl.focus();
     return;
   }
   if (!password) {
     passwordEl.classList.add("error");
-    showAlert("กรุณากรอกรหัสผ่าน");
+    showAlert(lt("err.noPw"));
     passwordEl.focus();
     return;
   }
@@ -94,7 +190,7 @@ form.addEventListener("submit", e => {
       storage.setItem("conicle_admin_user", username);
       storage.setItem("conicle_is_admin", isAdmin ? "true" : "false");
 
-      btnText.innerHTML = '<i class="fa fa-check"></i> เข้าสู่ระบบสำเร็จ!';
+      btnText.innerHTML = lt('success');
       btnText.style.display = "flex";
       btnLoader.style.display = "none";
       submitBtn.style.background = "linear-gradient(135deg, #2e7d32, #1b5e20)";
@@ -109,7 +205,7 @@ form.addEventListener("submit", e => {
       usernameEl.classList.add("error");
       passwordEl.classList.add("error");
       passwordEl.value = "";
-      showAlert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง");
+      showAlert(lt("err.wrong"));
       usernameEl.focus();
     }
   }, 800);

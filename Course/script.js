@@ -1,3 +1,89 @@
+// ========== I18N ==========
+const TRANSLATIONS = {
+  th: {
+    'nav.home':       'หน้าหลัก',
+    'nav.courses':    'คอร์สออนไลน์',
+    'nav.search':     'ค้นหาคอร์สเรียน...',
+    'nav.login':      'เข้าสู่ระบบ',
+    'hero.title':     'เรียนรู้ AI เพื่ออนาคต',
+    'hero.sub.main':  'คอร์สเรียนออนไลน์คุณภาพสูง พัฒนาทักษะความสามารถของคุณ —',
+    'hero.sub.free':  'ฟรีทุกคอร์ส!',
+    'hero.cta':       'ดูคอร์สทั้งหมด',
+    'lang.label':     'เลือกภาษา',
+    'cat.all':        'ทั้งหมด',
+    'section.title':  'หลักสูตรคอร์สเรียนออนไลน์',
+    'section.sub':    'เรียนฟรี ไม่มีค่าใช้จ่าย พัฒนาตัวเองได้ทุกที่ทุกเวลา',
+    'section.viewAll':'ดูทั้งหมด',
+    'footer.tagline': 'แพลตฟอร์มเรียนรู้ออนไลน์สำหรับทุกคน',
+    'footer.courses': 'คอร์สเรียน',
+    'footer.help':    'ช่วยเหลือ',
+    'footer.help1':   'ศูนย์ช่วยเหลือ',
+    'footer.help2':   'ติดต่อเรา',
+    'footer.help3':   'นโยบายความเป็นส่วนตัว',
+    'footer.copy':    '© 2026 AI Course Hub. All rights reserved.',
+    'card.free':      'ฟรี',
+    'card.lessons':   'บทเรียน',
+    'card.recommend': 'แนะนำ',
+    'modal.priceLbl': 'ราคาคอร์สเรียน',
+    'modal.free':     'ฟรี',
+    'modal.enroll':   'ลงทะเบียนเรียน',
+    'modal.noLink':   'ยังไม่มีลิ้งลงทะเบียนเรียน',
+    'modal.lessons':  'บทเรียน',
+    'va.title':       'คอร์สเรียนทั้งหมด',
+    'va.featured':    'คอร์สแนะนำ',
+    'va.others':      'คอร์สอื่นๆ',
+    'va.courseUnit':  'คอร์ส',
+    'va.subtitle':    (tot, feat, oth) => `ทั้งหมด ${tot} คอร์ส · แนะนำ ${feat} · อื่นๆ ${oth}`,
+    'no.results':     'ไม่พบคอร์สที่ค้นหา',
+    'user.manage':    'จัดการคอร์ส',
+    'user.logout':    'ออกจากระบบ',
+  },
+  en: {
+    'nav.home':       'Home',
+    'nav.courses':    'Online Courses',
+    'nav.search':     'Search courses...',
+    'nav.login':      'Login',
+    'hero.title':     'Learn AI for the Future',
+    'hero.sub.main':  'High-quality online courses to develop your skills —',
+    'hero.sub.free':  'All courses free!',
+    'hero.cta':       'Browse All Courses',
+    'lang.label':     'Choose language',
+    'cat.all':        'All',
+    'section.title':  'Online Course Catalog',
+    'section.sub':    'Free to learn, anytime, anywhere',
+    'section.viewAll':'View All',
+    'footer.tagline': 'Online learning platform for everyone',
+    'footer.courses': 'Courses',
+    'footer.help':    'Help',
+    'footer.help1':   'Help Center',
+    'footer.help2':   'Contact Us',
+    'footer.help3':   'Privacy Policy',
+    'footer.copy':    '© 2026 AI Course Hub. All rights reserved.',
+    'card.free':      'Free',
+    'card.lessons':   'Lessons',
+    'card.recommend': 'Recommend',
+    'modal.priceLbl': 'Course Price',
+    'modal.free':     'Free',
+    'modal.enroll':   'Enroll Now',
+    'modal.noLink':   'Enrollment link not available',
+    'modal.lessons':  'Lessons',
+    'va.title':       'All Courses',
+    'va.featured':    'Recommended Courses',
+    'va.others':      'Other Courses',
+    'va.courseUnit':  'courses',
+    'va.subtitle':    (tot, feat, oth) => `Total ${tot} courses · Recommended ${feat} · Others ${oth}`,
+    'no.results':     'No courses found',
+    'user.manage':    'Manage Courses',
+    'user.logout':    'Logout',
+  }
+};
+
+let currentLang = localStorage.getItem('siteLanguage') || 'th';
+function t(key) {
+  const val = TRANSLATIONS[currentLang][key];
+  return (typeof val === 'string') ? val : key;
+}
+
 // ========== DATA ==========
 const STORAGE_KEY = "conicle_courses";
 
@@ -196,7 +282,6 @@ const DEFAULT_COURSES = [
   }
 ];
 
-// โหลดจาก localStorage ถ้ามี ไม่งั้นใช้ default
 function loadCourses() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (raw) {
@@ -207,12 +292,8 @@ function loadCourses() {
 
 let courses = loadCourses();
 
-// ฟัง storage event เพื่อ sync แบบ realtime เมื่อ Admin บันทึก
 window.addEventListener("storage", e => {
-  if (e.key === STORAGE_KEY) {
-    courses = loadCourses();
-    refresh();
-  }
+  if (e.key === STORAGE_KEY) { courses = loadCourses(); refresh(); }
 });
 
 // ========== RENDER CARD ==========
@@ -227,7 +308,7 @@ function renderCard(course) {
           ${course.difficulty ? `<span class="diff-badge ${course.difficulty}">${{beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[course.difficulty]||''}</span>` : ''}
         </div>
         <div class="play-btn"><i class="fa fa-play-circle"></i></div>
-        ${course.featured ? `<div class="featured-star"><i class="fa fa-star"></i> Recommend</div>` : ''}
+        ${course.featured ? `<div class="featured-star"><i class="fa fa-star"></i> ${t('card.recommend')}</div>` : ''}
       </div>
       <div class="card-body">
         <div class="card-category">${course.categoryLabel}</div>
@@ -237,28 +318,19 @@ function renderCard(course) {
           <span class="card-instructor">${course.instructor}</span>
         </div>
         <div class="card-footer">
-          <span class="card-price">ฟรี</span>
+          <span class="card-price">${t('card.free')}</span>
           <span class="card-meta-info"><i class="fa fa-clock"></i> ${course.duration}</span>
-          <span class="card-meta-info"><i class="fa fa-book-open"></i> ${course.lessons} บทเรียน</span>
+          <span class="card-meta-info"><i class="fa fa-book-open"></i> ${course.lessons} ${t('card.lessons')}</span>
         </div>
       </div>
     </div>`;
-}
-
-function renderStars(rating) {
-  const full = Math.floor(rating);
-  const half = rating % 1 >= 0.5;
-  let html = "";
-  for (let i = 0; i < full; i++) html += "★";
-  if (half) html += "½";
-  return html;
 }
 
 // ========== POPULATE GRIDS ==========
 function populateGrid(containerId, list) {
   const container = document.getElementById(containerId);
   if (!list.length) {
-    container.innerHTML = `<div class="no-results"><i class="fa fa-search"></i>ไม่พบคอร์สที่ค้นหา</div>`;
+    container.innerHTML = `<div class="no-results"><i class="fa fa-search"></i>${t('no.results')}</div>`;
     return;
   }
   container.innerHTML = list.map(renderCard).join("");
@@ -282,15 +354,6 @@ function filtered() {
   });
 }
 
-function featuredFiltered() {
-  return courses.filter(c => !c.hidden && c.featured && (
-    activeCategory === "all" || c.category === activeCategory
-  ) && (
-    c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    c.instructor.toLowerCase().includes(searchQuery.toLowerCase())
-  ));
-}
-
 function refresh() {
   populateGrid("coursesGrid", filtered());
 }
@@ -311,19 +374,19 @@ function openModal(id) {
       <div class="modal-meta-row">
         <span><i class="fa fa-user-tie"></i> ${c.instructor}</span>
         <span><i class="fa fa-clock"></i> ${c.duration}</span>
-        <span><i class="fa fa-book-open"></i> ${c.lessons} บทเรียน</span>
+        <span><i class="fa fa-book-open"></i> ${c.lessons} ${t('modal.lessons')}</span>
       </div>
       <div class="modal-price-row">
         <div>
-          <div style="font-size:12px;color:#999;margin-bottom:4px;">ราคาคอร์สเรียน</div>
-          <div class="modal-price">ฟรี</div>
+          <div style="font-size:12px;color:#999;margin-bottom:4px;">${t('modal.priceLbl')}</div>
+          <div class="modal-price">${t('modal.free')}</div>
         </div>
         ${c.enrollUrl
           ? `<a class="btn-enroll" href="${c.enrollUrl}" target="_blank" rel="noopener">
-               <i class="fa fa-graduation-cap"></i> ลงทะเบียนเรียน
+               <i class="fa fa-graduation-cap"></i> ${t('modal.enroll')}
              </a>`
           : `<button class="btn-enroll" disabled style="opacity:.5;cursor:not-allowed">
-               <i class="fa fa-graduation-cap"></i> ยังไม่มีลิ้งลงทะเบียนเรียน
+               <i class="fa fa-graduation-cap"></i> ${t('modal.noLink')}
              </button>`
         }
       </div>
@@ -357,22 +420,28 @@ document.getElementById("modalOverlay").addEventListener("click", e => {
   if (e.target === document.getElementById("modalOverlay")) closeModal();
 });
 
-// Escape key handled in View All section below
-
-// "ดูคอร์สทั้งหมด" hero button scrolls to courses section
 document.querySelector(".btn-hero").addEventListener("click", () => {
-  document.querySelector(".courses-section").scrollIntoView({ behavior: "smooth" });
+  document.querySelector(".featured-section").scrollIntoView({ behavior: "smooth" });
 });
 
 // ========== USER AUTH AREA ==========
-(function initUserArea() {
+let _userAreaController = null;
+function renderUserArea() {
+  if (_userAreaController) _userAreaController.abort();
+  _userAreaController = new AbortController();
+  const { signal } = _userAreaController;
+
   const ls = localStorage.getItem("conicle_auth") === "true";
   const ss = sessionStorage.getItem("conicle_auth") === "true";
-  if (!ls && !ss) return;
+  const area = document.getElementById("userArea");
+
+  if (!ls && !ss) {
+    area.innerHTML = `<button class="btn-login" onclick="window.location.href='../Login/index.html'">${t('nav.login')}</button>`;
+    return;
+  }
 
   const username = localStorage.getItem("conicle_admin_user") || sessionStorage.getItem("conicle_admin_user") || "";
   const isAdmin  = (localStorage.getItem("conicle_is_admin") || sessionStorage.getItem("conicle_is_admin")) === "true";
-  const area = document.getElementById("userArea");
 
   area.innerHTML = `
     <div class="user-menu" id="userMenu">
@@ -382,29 +451,27 @@ document.querySelector(".btn-hero").addEventListener("click", () => {
         <i class="fa fa-chevron-down" style="font-size:10px;opacity:.6"></i>
       </button>
       <div class="user-dropdown" id="userDropdown">
-        ${isAdmin ? `<a href="../Admin/index.html"><i class="fa fa-shield-halved"></i> จัดการคอร์ส</a>` : ""}
-        <a href="#" id="logoutBtn"><i class="fa fa-right-from-bracket"></i> ออกจากระบบ</a>
+        ${isAdmin ? `<a href="../Admin/index.html"><i class="fa fa-shield-halved"></i> ${t('user.manage')}</a>` : ""}
+        <a href="#" id="logoutBtn"><i class="fa fa-right-from-bracket"></i> ${t('user.logout')}</a>
       </div>
     </div>`;
 
   document.getElementById("userChip").addEventListener("click", () => {
     document.getElementById("userDropdown").classList.toggle("show");
-  });
+  }, { signal });
   document.addEventListener("click", e => {
-    if (!document.getElementById("userMenu").contains(e.target))
-      document.getElementById("userDropdown").classList.remove("show");
-  });
+    const menu = document.getElementById("userMenu");
+    if (menu && !menu.contains(e.target))
+      document.getElementById("userDropdown")?.classList.remove("show");
+  }, { signal });
   document.getElementById("logoutBtn").addEventListener("click", e => {
     e.preventDefault();
-    localStorage.removeItem("conicle_auth");
-    localStorage.removeItem("conicle_admin_user");
-    localStorage.removeItem("conicle_is_admin");
-    sessionStorage.removeItem("conicle_auth");
-    sessionStorage.removeItem("conicle_admin_user");
-    sessionStorage.removeItem("conicle_is_admin");
+    ["conicle_auth","conicle_admin_user","conicle_is_admin"].forEach(k => {
+      localStorage.removeItem(k); sessionStorage.removeItem(k);
+    });
     window.location.href = "../Login/index.html";
-  });
-})();
+  }, { signal });
+}
 
 // ========== VIEW ALL ==========
 function openViewAll() {
@@ -413,7 +480,7 @@ function openViewAll() {
   const others   = visible.filter(c => !c.featured);
 
   document.getElementById('vaSubtitle').textContent =
-    `ทั้งหมด ${visible.length} คอร์ส · แนะนำ ${featured.length} · อื่นๆ ${others.length}`;
+    TRANSLATIONS[currentLang]['va.subtitle'](visible.length, featured.length, others.length);
 
   const vaBody = document.getElementById('vaBody');
   vaBody.innerHTML = `
@@ -421,8 +488,8 @@ function openViewAll() {
       <div class="va-section">
         <div class="va-section-header">
           <div class="va-section-icon featured"><i class="fa fa-star"></i></div>
-          <span class="va-section-label">คอร์สแนะนำ</span>
-          <span class="va-section-count featured">${featured.length} คอร์ส</span>
+          <span class="va-section-label">${t('va.featured')}</span>
+          <span class="va-section-count featured">${featured.length} ${t('va.courseUnit')}</span>
         </div>
         <div class="va-grid" id="vaFeaturedGrid"></div>
       </div>` : ''}
@@ -430,8 +497,8 @@ function openViewAll() {
       <div class="va-section">
         <div class="va-section-header">
           <div class="va-section-icon others"><i class="fa fa-book-open"></i></div>
-          <span class="va-section-label">คอร์สอื่นๆ</span>
-          <span class="va-section-count others">${others.length} คอร์ส</span>
+          <span class="va-section-label">${t('va.others')}</span>
+          <span class="va-section-count others">${others.length} ${t('va.courseUnit')}</span>
         </div>
         <div class="va-grid" id="vaOthersGrid"></div>
       </div>` : ''}
@@ -443,10 +510,7 @@ function openViewAll() {
       if (!el) return;
       el.innerHTML = list.map(renderCard).join('');
       el.querySelectorAll('.course-card').forEach(card => {
-        card.addEventListener('click', () => {
-          closeViewAll();
-          openModal(Number(card.dataset.id));
-        });
+        card.addEventListener('click', () => { closeViewAll(); openModal(Number(card.dataset.id)); });
       });
     });
 
@@ -466,10 +530,52 @@ document.getElementById('vaOverlay').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeViewAll(); closeModal(); }
 });
-
 document.querySelectorAll('.view-all').forEach(btn => {
   btn.addEventListener('click', e => { e.preventDefault(); openViewAll(); });
 });
 
+// ========== APPLY LANG ==========
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = TRANSLATIONS[currentLang][el.dataset.i18n];
+    if (typeof val === 'string') el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const val = TRANSLATIONS[currentLang][el.dataset.i18nPlaceholder];
+    if (val) el.placeholder = val;
+  });
+  const langFlag = document.getElementById('langFlag');
+  const langName = document.getElementById('langName');
+  if (langFlag) langFlag.textContent = currentLang === 'th' ? '🇹🇭' : '🇬🇧';
+  if (langName) langName.textContent = currentLang === 'th' ? 'ภาษาไทย' : 'English';
+  document.querySelectorAll('.lang-option').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === currentLang);
+  });
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('siteLanguage', lang);
+  applyLang();
+  refresh();
+  renderUserArea();
+  if (document.getElementById('vaOverlay').classList.contains('open')) openViewAll();
+  document.getElementById('langSelector')?.classList.remove('open');
+}
+
+// ========== LANG SELECTOR ==========
+(function initLangSelector() {
+  const sel = document.getElementById('langSelector');
+  const cur = document.getElementById('langCurrent');
+  if (!sel || !cur) return;
+  cur.addEventListener('click', e => { e.stopPropagation(); sel.classList.toggle('open'); });
+  document.addEventListener('click', () => sel.classList.remove('open'));
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.addEventListener('click', e => { e.stopPropagation(); setLang(btn.dataset.lang); });
+  });
+})();
+
 // ========== INIT ==========
+applyLang();
+renderUserArea();
 refresh();

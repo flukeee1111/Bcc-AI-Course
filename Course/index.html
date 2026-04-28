@@ -19,19 +19,17 @@
           <span class="logo-text" id="logoText"></span>
         </a>
         <ul class="nav-links">
-          <li><a href="#">หน้าหลัก</a></li>
-          <li><a href="#" class="active">คอร์สออนไลน์</a></li>
+          <li><a href="#" data-i18n="nav.home">หน้าหลัก</a></li>
+          <li><a href="#" class="active" data-i18n="nav.courses">คอร์สออนไลน์</a></li>
         </ul>
       </div>
       <div class="nav-right">
         <div class="search-box">
           <i class="fa fa-search"></i>
-          <input type="text" placeholder="ค้นหาคอร์สเรียน..." id="searchInput" />
+          <input type="text" placeholder="ค้นหาคอร์สเรียน..." id="searchInput" data-i18n-placeholder="nav.search" />
         </div>
         <button class="dm-toggle" title="เปลี่ยนธีม"><i class="fa fa-moon"></i></button>
-        <div class="user-area" id="userArea">
-          <button class="btn-login" onclick="window.location.href='../Login/index.html'">เข้าสู่ระบบ</button>
-        </div>
+        <div class="user-area" id="userArea"></div>
       </div>
     </div>
   </nav>
@@ -47,9 +45,23 @@
     <div class="hero-shape hs-square-sm"></div>
     <div class="hero-shape hs-circle-bottom"></div>
     <div class="hero-content">
-      <h1>เรียนรู้ AI เพื่ออนาคต</h1>
-      <p>คอร์สเรียนออนไลน์คุณภาพสูง พัฒนาทักษะความสามารถของคุณ — <strong>ฟรีทุกคอร์ส!</strong></p>
-      <button class="btn-hero">ดูคอร์สทั้งหมด <i class="fa fa-arrow-down"></i></button>
+      <h1 data-i18n="hero.title">เรียนรู้ AI เพื่ออนาคต</h1>
+      <p><span data-i18n="hero.sub.main">คอร์สเรียนออนไลน์คุณภาพสูง พัฒนาทักษะความสามารถของคุณ —</span> <strong data-i18n="hero.sub.free">ฟรีทุกคอร์ส!</strong></p>
+      <div class="lang-row">
+        <span class="lang-label" data-i18n="lang.label">เลือกภาษา</span>
+        <div class="lang-selector" id="langSelector">
+          <button class="lang-current" id="langCurrent">
+            <span id="langFlag">🇹🇭</span>
+            <span id="langName">ภาษาไทย</span>
+            <i class="fa fa-chevron-down lang-arrow"></i>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button class="lang-option active" data-lang="th">🇹🇭 ภาษาไทย</button>
+            <button class="lang-option" data-lang="en">🇬🇧 English</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-hero"><span data-i18n="hero.cta">ดูคอร์สทั้งหมด</span> <i class="fa fa-arrow-down"></i></button>
     </div>
   </section>
 
@@ -57,7 +69,7 @@
   <section class="categories">
     <div class="container">
       <div class="cat-tabs" id="catTabs">
-        <button class="cat-btn active" data-cat="all">ทั้งหมด</button>
+        <button class="cat-btn active" data-cat="all" data-i18n="cat.all">ทั้งหมด</button>
         <button class="cat-btn" data-cat="ai">AI & Machine Learning</button>
         <button class="cat-btn" data-cat="data">Data Science</button>
         <button class="cat-btn" data-cat="leadership">Leadership</button>
@@ -72,14 +84,12 @@
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">หลักสูตรคอร์สเรียนออนไลน์</h2>
-          <p class="section-sub">เรียนฟรี ไม่มีค่าใช้จ่าย พัฒนาตัวเองได้ทุกที่ทุกเวลา</p>
+          <h2 class="section-title" data-i18n="section.title">หลักสูตรคอร์สเรียนออนไลน์</h2>
+          <p class="section-sub" data-i18n="section.sub">เรียนฟรี ไม่มีค่าใช้จ่าย พัฒนาตัวเองได้ทุกที่ทุกเวลา</p>
         </div>
-        <a href="#" class="view-all">ดูทั้งหมด <i class="fa fa-chevron-right"></i></a>
+        <a href="#" class="view-all"><span data-i18n="section.viewAll">ดูทั้งหมด</span> <i class="fa fa-chevron-right"></i></a>
       </div>
-      <div class="courses-grid" id="coursesGrid">
-        <!-- Cards injected by JS -->
-      </div>
+      <div class="courses-grid" id="coursesGrid"></div>
     </div>
   </section>
 
@@ -88,10 +98,10 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <span class="logo-text white">AI Course Hub</span>
-        <p>แพลตฟอร์มเรียนรู้ออนไลน์สำหรับทุกคน</p>
+        <p data-i18n="footer.tagline">แพลตฟอร์มเรียนรู้ออนไลน์สำหรับทุกคน</p>
       </div>
       <div class="footer-links">
-        <h4>คอร์สเรียน</h4>
+        <h4 data-i18n="footer.courses">คอร์สเรียน</h4>
         <ul>
           <li><a href="#">AI & Machine Learning</a></li>
           <li><a href="#">Data Science</a></li>
@@ -100,16 +110,16 @@
         </ul>
       </div>
       <div class="footer-links">
-        <h4>ช่วยเหลือ</h4>
+        <h4 data-i18n="footer.help">ช่วยเหลือ</h4>
         <ul>
-          <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
-          <li><a href="#">ติดต่อเรา</a></li>
-          <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+          <li><a href="#" data-i18n="footer.help1">ศูนย์ช่วยเหลือ</a></li>
+          <li><a href="#" data-i18n="footer.help2">ติดต่อเรา</a></li>
+          <li><a href="#" data-i18n="footer.help3">นโยบายความเป็นส่วนตัว</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 AI Course Hub. All rights reserved.</p>
+      <p data-i18n="footer.copy">© 2026 AI Course Hub. All rights reserved.</p>
     </div>
   </footer>
 
@@ -118,7 +128,7 @@
     <div class="va-panel">
       <div class="va-header">
         <div>
-          <h2 class="va-title">คอร์สเรียนทั้งหมด</h2>
+          <h2 class="va-title" data-i18n="va.title">คอร์สเรียนทั้งหมด</h2>
           <p class="va-sub" id="vaSubtitle"></p>
         </div>
         <button class="va-close" id="vaClose"><i class="fa fa-times"></i></button>
@@ -138,19 +148,14 @@
   <script src="../darkmode.js"></script>
   <script src="script.js"></script>
   <script>
-    // ===== LOGO ANIMATION =====
     const logoText = document.getElementById('logoText');
     const siteLogo = document.getElementById('siteLogo');
     const text = 'AI Course Hub';
-
-    // สร้าง span แต่ละตัวอักษร พร้อม animation-delay แบบ stagger
     logoText.innerHTML = text.split('').map((ch, i) =>
       ch === ' '
         ? '<span class="logo-letter" style="width:.35em;display:inline-block"> </span>'
         : `<span class="logo-letter" style="animation-delay:${i * 40}ms">${ch}</span>`
     ).join('');
-
-    // Magnetic effect — logo ขยับตามเมาส์เล็กน้อย
     siteLogo.addEventListener('mousemove', e => {
       const rect = siteLogo.getBoundingClientRect();
       const cx = rect.left + rect.width  / 2;
