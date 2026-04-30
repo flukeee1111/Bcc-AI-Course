@@ -118,6 +118,7 @@ const DEFAULT_COURSES = [
     lessons: 10,
     rating: 4.7,
     description: "นี่คือคอร์ส Microsoft 365 Copilot ฟรีที่จะช่วยให้คุณคุ้นเคยกับผู้ช่วย AI ภายในแอปพลิเคชัน Microsoft Office คุณจะเริ่มต้นด้วยคุณสมบัติ การพัฒนา และบทบาทในการเพิ่มประสิทธิภาพการทำงานของมัน คอร์สนี้ครอบคลุมสถาปัตยกรรม ส่วนประกอบหลัก และข้อพิจารณาด้านความเป็นส่วนตัวและการปฏิบัติตามกฎระเบียบของ Copilot พร้อมตัวอย่างสาธิตเชิงปฏิบัติ คุณจะได้เรียนรู้วิธีใช้ Copilot ใน Word, Excel, PowerPoint, Outlook และ Teams และคุณจะมีทักษะเชิงปฏิบัติในการทำงานอย่างมีประสิทธิภาพและสร้างผลผลิตในงานประเภทต่าง ๆ และในอุตสาหกรรมต่าง ๆ",
+    enrollUrl: "https://www.mygreatlearning.com/academy/learn-for-free/courses/introduction-to-microsoft-365-copilot",
     thumb: "https://news.uoregon.edu/sites/default/files/2024-12/copilot-logo-3d_as823304134_eduseonly_1920x1080.jpeg",
     featured: false
   },
@@ -134,6 +135,7 @@ const DEFAULT_COURSES = [
     lessons: 41,
     rating: 4.6,
     description: "ในหลักสูตร Machine Learning in Production นี้ คุณจะสร้างความเข้าใจเกี่ยวกับการออกแบบระบบ ML สำหรับการผลิตแบบครบวงจร: การกำหนดขอบเขตโครงการ ความต้องการข้อมูล กลยุทธ์การสร้างโมเดล และรูปแบบและเทคโนโลยีในการปรับใช้ คุณจะได้เรียนรู้กลยุทธ์ในการแก้ไขปัญหาที่พบได้บ่อยในระบบการผลิต เช่น การสร้างค่าพื้นฐานของโมเดล การแก้ไขปัญหาการเปลี่ยนแปลงของแนวคิด และการวิเคราะห์ข้อผิดพลาด คุณจะได้ติดตามกรอบการพัฒนา การปรับใช้ และการปรับปรุงอย่างต่อเนื่องของแอปพลิเคชัน ML ที่นำไปใช้ในระบบจริงความเข้าใจในแนวคิดของ machine learning และ deep learning เป็นสิ่งจำเป็น แต่ถ้าคุณต้องการสร้างอาชีพ AI ที่มีประสิทธิภาพ คุณจำเป็นต้องมีประสบการณ์ในการเตรียมโครงการของคุณสำหรับการปรับใช้ด้วย การวิศวกรรม machine learning สำหรับการผลิตผสานรวมแนวคิดพื้นฐานของ machine learning กับทักษะและแนวทางปฏิบัติที่ดีที่สุดของการพัฒนาซอฟต์แวร์สมัยใหม่ที่จำเป็นในการปรับใช้และบำรุงรักษาระบบ ML ในสภาพแวดล้อมจริงได้สำเร็จ",
+    enrollUrl: "https://www.coursera.org/learn/introduction-to-machine-learning-in-production#about",
     thumb: "https://www.trentonsystems.com/hs-fs/hubfs/Machine_Learning%20.jpeg?width=4041&name=Machine_Learning%20.jpeg",
     featured: true
   },
@@ -150,6 +152,7 @@ const DEFAULT_COURSES = [
     lessons: 4,
     rating: 4.9,
     description: "แนวทางปฏิบัติที่ดีที่สุดสำหรับ TensorFlow ซึ่งเป็นกรอบการทำงานการเรียนรู้ของเครื่องแบบเปิดที่ได้รับความนิยม เพื่อฝึกเครือข่ายประสาทเทียมสำหรับแอปพลิเคชันการมองด้วยคอมพิวเตอร์ จัดการกับข้อมูลภาพในโลกแห่งความจริงและสำรวจกลยุทธ์เพื่อป้องกันการฟิตเกินรวมถึงการเพิ่มข้อมูลและการลดการหน่วง สร้างระบบประมวลผลภาษาธรรมชาติด้วย TensorFlow ประยุกต์ใช้ RNN, GRU และ LSTM ขณะทำการฝึกด้วยคลังข้อมูลข้อความ",
+    enrollUrl: "https://www.coursera.org/professional-certificates/tensorflow-in-practice#about",
     thumb: "https://thaiconfig.com/wp-content/uploads/2023/03/TensorFlow-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3.png",
     featured: true
   },
@@ -166,6 +169,7 @@ const DEFAULT_COURSES = [
     lessons: 8,
     rating: 4.9,
     description: "ใน LangChain สำหรับการพัฒนาการประยุกต์ใช้ LLM คุณจะได้รับทักษะสำคัญในการขยายกรณีการใช้งานและความสามารถของโมเดลภาษาในการพัฒนาการประยุกต์ใช้โดยใช้เฟรมเวิร์ก LangChain  ",
+    enrollUrl: "https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/",
     thumb: "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=600&q=80",
     featured: false
   },
@@ -182,6 +186,7 @@ const DEFAULT_COURSES = [
     lessons: 11,
     rating: 4.7,
     description: "สิ่งที่คุณจะได้เรียนรู้ กำหนดความหมายของวิศวกรรมข้อมูลและรับรู้บทบาทของมันในการสร้างท่อข้อมูลสำหรับการวิเคราะห์และการเรียนรู้ของเครื่อง ระบุส่วนประกอบสำคัญของเวิร์กโฟลว์ข้อมูล รวมถึงการนำเข้า การจัดเก็บ การแปลง และการให้บริการ แยกความแตกต่างระหว่างวิธีการประมวลผลข้อมูลแบบเป็นชุดและแบบสตรีมมิง และประเมินว่าแต่ละวิธีเหมาะสมเมื่อใด รับรู้ความรับผิดชอบของบทบาทวิศวกรข้อมูลเมื่อเทียบกับบทบาทวิทยาศาสตร์ข้อมูลและการวิเคราะห์ ประเมินเครื่องมือและเทคโนโลยีวิศวกรรมข้อมูลทั่วไปที่ใช้ในระบบนิเวศข้อมูลสมัยใหม่",
+    enrollUrl: "https://www.datacamp.com/courses/understanding-data-engineering",
     thumb: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
     featured: false
   },
